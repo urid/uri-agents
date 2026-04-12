@@ -24,6 +24,8 @@ Fetch up to 50 messages. For each, collect:
 - `body_snippet` — first 500 characters of body text
 - `date`
 
+If `from_name` is empty or blank, set it to `from_email` as the display name.
+
 Construct Gmail URL for each email: `https://mail.google.com/mail/u/0/#inbox/[thread_id]`
 
 ---
@@ -62,7 +64,7 @@ Continue to Check 2 — do NOT skip remaining checks.
 Does `subject` OR `body_snippet` contain (case-insensitive):
 `urgent`, `asap`, `time-sensitive`, `deadline`, `eod`, `by tomorrow`, `action required`
 
-If YES → append to `urgent_alerts`:
+If YES AND this email is NOT already in `vip_alerts` → append to `urgent_alerts`:
 ```
 {from_name, from_email, subject, preview: body_snippet[:200], gmail_url}
 ```
@@ -71,6 +73,11 @@ Continue to Check 3 — do NOT skip remaining checks.
 ---
 
 ### Check 3 — Archive Rules (first match wins, then skip to Check 4)
+
+**VIP protection — skip archive for VIP senders**
+If this email's `message_id` is already in `vip_alerts`, skip ALL of Check 3 and proceed to Check 4.
+
+---
 
 **3a — Newsletter / Marketing**
 Archive if NOT an educational sender AND at least one marketing signal:
@@ -89,7 +96,7 @@ Marketing signals (archive if any present):
 **3b — System Notification (no action item for me)**
 Archive if:
 - Sender looks automated: `from_email` starts with or equals: noreply, no-reply, automated, notifications, alerts, mailer-daemon, postmaster, do-not-reply, support (from ticketing systems), info@ (from platforms)
-- AND body does NOT contain "Uri" or "urid" followed by a task/request within 50 characters
+- AND body does NOT contain "Uri" or "urid" within 50 characters of: a question mark, "please", "can you", "could you", "need you", or an imperative verb
 
 → `to_archive`: {message_id, reason: "system notification"}. **Skip 3c–3g.**
 
@@ -115,6 +122,8 @@ AND NOT:
 - Body contains "Assignee:" or "assigned to" near "Uri" or "urid"
 - Body contains "@urid"
 - Body contains "mentioned you" (GitHub mention)
+
+(All checks are case-insensitive.)
 
 → `to_archive`: {message_id, reason: "JIRA/GitHub auto"}
 → Extract ticket ID (regex `\[([A-Z]+-\d+)\]` from subject) and link (first https://... in body matching jira or github)
@@ -182,6 +191,10 @@ If YES:
 
 ---
 
+**Terminal state:** If this email was not added to `to_archive` and not added to `action_items` by any of the checks above, leave it in inbox — no action taken.
+
+---
+
 ## Step 3: Execute Gmail Actions
 
 For all emails in `to_archive`:
@@ -189,7 +202,7 @@ For all emails in `to_archive`:
 1. Check if label "agent" exists. If not, create it.
 2. For each email: add label "agent" AND remove from INBOX (archive).
 
-Process in batches of 10 to avoid rate limits. If a batch fails, log the failure and continue with the next batch.
+Process in batches of 10 to avoid rate limits. If a batch fails, note the failure (include failed message IDs in the Final Report) and continue with the next batch.
 
 ---
 
@@ -228,6 +241,7 @@ Subject: [subject]
 
 ## ✅ Action Items
 [PRESERVED EXISTING ITEMS — copy exactly from current canvas]
+(Omit any lines starting with `- [x]` — these are completed items that no longer need to appear.)
 [NEW ITEMS from action_items list — one line each:]
 - [ ] [description]
 
@@ -287,4 +301,5 @@ Run complete.
 - Urgent alerts: N
 - Action items added: N
 - Drafts created: N
+- Archive failures: N (if any)
 ```
