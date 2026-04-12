@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "google-workspace": {
+      "command": "uv",
+      "args": [
+        "run",
+        "main.py",
+        "--single-user",
+        "--tools",
+        "gmail",
+        "drive"
+      ],
+      "cwd": "C:\\Users\\urida\\tools\\google_workspace_mcp",
+      "env": {
+        "GOOGLE_OAUTH_CLIENT_ID": "YOUR_CLIENT_ID.apps.googleusercontent.com",
+        "GOOGLE_OAUTH_CLIENT_SECRET": "YOUR_CLIENT_SECRET"
+      }
+    }
+  }
+}
