@@ -137,9 +137,6 @@ celerybeat.pid
 # MCP config (contains credentials)
 .mcp.json
 
-# Claude Code session status output
-status.md
-
 # Environments
 .env
 .envrc
