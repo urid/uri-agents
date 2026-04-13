@@ -1,16 +1,12 @@
 # Email Agent State
 
-## Slack Configuration
-- **User ID**: U28GL3MEU
-- **DM Channel ID**: D28GVGJ5V
-
-## Canvas
-- **Canvas ID**: F0ASRUA21G9
+## Slack
+- **DM channel ID:** D28GVGJ5V
+- **Canvas ID:** F0ASRUA21G9
 
 ## Last Run
-- **Timestamp**: (not yet run)
-- **Emails processed**: 0
-- **Emails archived**: 0
-- **VIP alerts sent**: 0
-- **Urgent alerts sent**: 0
-- **Drafts created**: 0
+- **Timestamp:** 2026-04-13T16:30:00
+- **Emails processed:** 5
+- **Emails archived:** 0
+- **Alerts sent:** 0
+- **Drafts created:** 0
