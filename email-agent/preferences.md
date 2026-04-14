@@ -10,6 +10,10 @@ Emails from these people trigger an immediate Slack DM alert:
 - Sagi Shliesser — sagis@tabtale.com / sagis@crazylabs.com
 - Guy T. — guyt@tabtale.com / guyt@crazylabs.com
 - Ariel V. — arielv@tabtale.com / arielv@crazylabs.com
+- Dana Ghenish — danag@tabtale.com / danag@crazylabs.com
+
+## Special Alerts
+- **Massage sign-up** — If subject contains `עיסויים`, send a 💆 Slack DM alert immediately
 
 ## Urgency Keywords
 Flag as urgent if subject or body contains:

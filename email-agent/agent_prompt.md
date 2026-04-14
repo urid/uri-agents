@@ -35,6 +35,7 @@ Construct Gmail URL for each email: `https://mail.google.com/mail/u/0/#inbox/[th
 Initialize these lists (start empty each run):
 - `vip_alerts` — emails needing instant Slack DM alert (VIP sender)
 - `urgent_alerts` — emails needing instant Slack DM alert (urgency keywords, non-VIP only)
+- `massage_alerts` — emails with "עיסויים" in subject needing a special Slack DM alert
 - `to_archive` — list of {message_id, reason, from_name, subject, one_line_summary}
 - `action_items` — list of {description, draft_id (optional)}
 - `ai_weekly` — list of {from_name, subject} — educational AI/tech newsletters to label but not archive
@@ -49,6 +50,7 @@ Does `from_email` (case-insensitive) match:
 - sagis@tabtale.com OR sagis@crazylabs.com
 - guyt@tabtale.com OR guyt@crazylabs.com
 - arielv@tabtale.com OR arielv@crazylabs.com
+- danag@tabtale.com OR danag@crazylabs.com
 
 If YES → append to `vip_alerts`:
 ```
@@ -68,6 +70,18 @@ Does `subject` OR `body_snippet` contain (case-insensitive):
 If YES AND this email is NOT already in `vip_alerts` → append to `urgent_alerts`:
 ```
 {from_name, from_email, subject, preview: body_snippet[:200], gmail_url, action_summary: one sentence describing what action is needed}
+```
+Continue to Check 3 — do NOT skip remaining checks.
+
+---
+
+### Check 2b — Massage Alert
+
+Does `subject` contain the word `עיסויים`?
+
+If YES → append to `massage_alerts`:
+```
+{from_name, subject, gmail_url}
 ```
 Continue to Check 3 — do NOT skip remaining checks.
 
@@ -100,7 +114,8 @@ Marketing signals (archive if any present):
 
 **3b — System Notification (no action item for me)**
 Archive if:
-- Sender looks automated: `from_email` starts with or equals: noreply, no-reply, automated, notifications, alerts, mailer-daemon, postmaster, do-not-reply, support (from ticketing systems), info@ (from platforms)
+- Sender looks automated: `from_email` starts with or equals: noreply, no-reply, automated, notifications, alerts, mailer-daemon, postmaster, do-not-reply, support (from ticketing systems), info@ (from platforms), no_reply@
+- OR `from_email` is `no_reply@email.apple.com` AND subject contains "There's an issue with your" or "issue with your submission" (App Store Connect submission issue notifications — archive regardless of body content; other emails from this sender are NOT covered by this rule)
 - AND `from_name` is NOT "Glow Tech Planning" (these always stay in inbox regardless of sender address)
 - AND body does NOT contain "Uri" or "urid" within 50 characters of: a question mark, "please", "can you", "could you", "need you", or an imperative verb
 
@@ -284,6 +299,14 @@ From: [from_email]
 Subject: [subject]
 > [preview, max 150 chars]
 Action: [action_summary]
+<[gmail_url]|Open in Gmail>
+```
+
+For each email in `massage_alerts`:
+```
+💆 *Massage sign-up is open!*
+From: [from_name]
+Subject: [subject]
 <[gmail_url]|Open in Gmail>
 ```
 
