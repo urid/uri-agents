@@ -1,7 +1,4 @@
 
-Resume this session with:
-claude --resume e775e4ab-ce3a-4223-94f3-8fef68d67e8f
-
 
 
 Tasks 5 and 6 are done. Here's where things stand:   

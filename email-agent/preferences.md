@@ -10,18 +10,23 @@ Emails from these people trigger an immediate Slack DM alert:
 - Sagi Shliesser — sagis@tabtale.com / sagis@crazylabs.com
 - Guy T. — guyt@tabtale.com / guyt@crazylabs.com
 - Ariel V. — arielv@tabtale.com / arielv@crazylabs.com
+- Dana Ghenish — danag@tabtale.com / danag@crazylabs.com
+
+## Special Alerts
+- **Massage sign-up** — If subject contains `עיסויים`, send a 💆 Slack DM alert immediately
 
 ## Urgency Keywords
 Flag as urgent if subject or body contains:
 urgent, ASAP, time-sensitive, deadline, EOD, "by tomorrow", "action required"
 
 ## Archive Rules
-- **Newsletters:** Archive, EXCEPT educational ones (e.g. thebatch@deeplearning.ai)
+- **Newsletters:** Archive, EXCEPT educational ones (e.g. thebatch@deeplearning.ai, AI/ML/dev tool content from Google, NVIDIA, Cursor, Educative, etc.) — label educational newsletters `AI Weekly`
 - **System notifications:** Archive UNLESS there is an action item addressed to me
 - **CC'd emails:** Archive if I am not mentioned by name in the body → add to digest
 - **JIRA/GitHub:** Archive UNLESS I am mentioned or ticket is assigned to me → add to digest with link
-- **Meeting accepts:** Always archive
+- **Meeting accepts/cancels:** Always archive
 - **Meeting declines:** Archive UNLESS I organized the meeting
+- **Holiday/company-wide calendar invites:** Auto-accept and archive
 - **Social media notifications:** Archive
 - **Company-wide announcements:** Do NOT archive
 - **Labeling:** Apply the Gmail label `agent` to every archived email for auditability
