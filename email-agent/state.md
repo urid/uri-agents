@@ -5,8 +5,8 @@
 - **Canvas ID:** F0ASRUA21G9
 
 ## Last Run
-- **Timestamp:** 2026-04-23T09:30:00
-- **Emails processed:** 50
-- **Emails archived:** 26
-- **Alerts sent:** 6
+- **Timestamp:** 2026-04-26T09:00:00
+- **Emails processed:** 39
+- **Emails archived:** 8
+- **Alerts sent:** 5
 - **Drafts created:** 0
