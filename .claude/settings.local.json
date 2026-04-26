@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "defaultMode": "bypassPermissions",
+    "allow": [
+      "Skill(update-config)",
+      "mcp__claude_ai_Slack__slack_read_canvas",
+      "Bash(git:*)"
+    ]
+  }
+}
